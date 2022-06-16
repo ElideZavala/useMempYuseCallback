@@ -17,8 +17,12 @@ function App() {
     setUsers([...users, newUser])
   }
 
+  const handleSearch = () => {
+
+  }
+
   useEffect(() => {
-    console.log('App render')
+    // console.log('App render')
   }, [])
 
   return (
@@ -28,6 +32,9 @@ function App() {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
+      <button onClick={handleSearch}>
+        Search
+      </button>
       <button onClick={handleAdd}>
         Add
       </button>
