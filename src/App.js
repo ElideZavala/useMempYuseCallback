@@ -41,16 +41,21 @@ function App() {
   ,[search, users]); // cada que cambie algo en el search se ejecutaria. 
 
   // Funcion computada. una funcion que retorna un valor.
+
+  const printUsers = useCallback(() => {
+    console.log('changed users', users)
+  }, [users]) // Para que cuando cambien los usuarios se vuelvan a redefinir. 
+  // Cunado cambie el estado user modifica esa definicion. 
+  
+  
+  useEffect(() => {
+    printUsers();
+  }, [users, printUsers])
   
   useEffect(() => {
     // console.log('App render')
   })
   
-
-  useEffect(() => {
-    console.log('changed users')
-  }, [users])
-
   return (
     <div>
       <input
