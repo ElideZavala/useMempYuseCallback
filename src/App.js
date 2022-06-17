@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import List from "./List";
 
 const initialUsers = [ 
@@ -18,6 +18,15 @@ function App() {
     setUsers([...users, newUser])
   }
 
+
+
+  const handleDelete = useCallback((userId) => {
+    // Regresamos los Id que sean distintos al Id pasado y este Id Sera Eliminado.
+    // Nos regresa una copia del array original y elimina el elemento que coincida con el Id.
+    setUsers(users.filter(user => user.id !== userId))
+  }, [users]) // <== Nos indicara cuando vuelve a memorizarse la difinicion de una funcion 
+  // Cundo cambia la lista de usuarios tanmbien cambia la lista de eliminacion. 
+
   const handleSearch = () => {
     setSearch(text);
   }
@@ -32,11 +41,15 @@ function App() {
   ,[search, users]); // cada que cambie algo en el search se ejecutaria. 
 
   // Funcion computada. una funcion que retorna un valor.
-  useMemo(() => function, [input]) 
   
   useEffect(() => {
-    console.log('App render')
-  }, [])
+    // console.log('App render')
+  })
+  
+
+  useEffect(() => {
+    console.log('changed users')
+  }, [users])
 
   return (
     <div>
@@ -51,7 +64,7 @@ function App() {
       <button onClick={handleAdd}>
         Add
       </button>
-      <List users={filteredUsers} />
+      <List users={filteredUsers} handleDelete={handleDelete}/>
     </div>
   );
 }
